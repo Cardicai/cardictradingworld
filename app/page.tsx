@@ -24,7 +24,6 @@ export default function Page() {
 
       {/* Canvas */}
       <Canvas camera={{ position: [0, 0, 8], fov: 55 }}>
-        <color attach="background" args={[0x000000]} />
         <ambientLight intensity={0.2} />
         <pointLight position={[5, 5, 5]} intensity={1.2} />
         <pointLight position={[-5, -2, -3]} intensity={0.6} color={new THREE.Color('#8b5cf6')} />
