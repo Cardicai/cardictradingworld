@@ -1,4 +1,3 @@
-
 'use client'
 import { useFrame } from '@react-three/fiber'
 import { Sphere } from '@react-three/drei'
@@ -16,22 +15,24 @@ export default function Globe() {
     if (wire2.current) wire2.current.rotation.y -= dt * 0.08
   })
 
+  const R = 2.8
+
   return (
     <group ref={group}>
       {/* Atmosphere halo */}
       <mesh>
-        <sphereGeometry args={[2.05, 32, 32]} />
-        <meshBasicMaterial color={'#22d3ee'} transparent opacity={0.08} />
+        <sphereGeometry args={[R + 0.7, 64, 64]} />
+        <meshBasicMaterial color={'#22d3ee'} transparent opacity={0.10} />
       </mesh>
 
       {/* Core sphere */}
-      <Sphere args={[2, 64, 64]}>
-        <meshStandardMaterial color="#0b132b" metalness={0.4} roughness={0.8} />
+      <Sphere args={[R, 128, 128]}>
+        <meshStandardMaterial color="#0b132b" metalness={0.45} roughness={0.8} />
       </Sphere>
 
       {/* Dual wireframes */}
-      <Wire radius={2.02} refObj={wire1} color="#22d3ee"/>
-      <Wire radius={2.02} refObj={wire2} color="#8b5cf6"/>
+      <Wire radius={R + 0.06} refObj={wire1} color="#22d3ee"/>
+      <Wire radius={R + 0.06} refObj={wire2} color="#8b5cf6"/>
     </group>
   )
 }
@@ -42,7 +43,7 @@ function Wire({ radius, color, refObj }:{ radius:number, color:string, refObj: a
   return (
     <lineSegments ref={refObj}>
       <bufferGeometry attach="geometry" {...edges} />
-      <lineBasicMaterial attach="material" color={color} />
+      <lineBasicMaterial attach="material" color={color} linewidth={1} />
     </lineSegments>
   )
 }
