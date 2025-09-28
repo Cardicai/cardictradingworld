@@ -58,7 +58,7 @@ function Button3D({ text, href, onFocus }:{ text:string, href:string, onFocus:(p
 
   return (
     <group ref={buttonRef}>
-      <Html center occlude distanceFactor={5.5} transform>
+      <Html center occlude distanceFactor={5.5} sprite>
         <button
           onMouseEnter={()=>setHover(true)}
           onMouseLeave={()=>setHover(false)}
