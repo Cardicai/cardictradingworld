@@ -26,22 +26,24 @@ export default function Page() {
       </div>
 
       {/* ThreeJS */}
-      <Canvas camera={{ position: [0, 0, 10], fov: 50 }}>
-        <color attach="background" args={[0x000000]} />
-        <ambientLight intensity={0.25} />
-        <pointLight position={[6, 6, 8]} intensity={1.3} />
-        <pointLight position={[-6, -3, -6]} intensity={0.7} color={new THREE.Color('#8b5cf6')} />
+      <div className="absolute inset-0">
+        <Canvas className="h-full w-full" camera={{ position: [0, 0, 10], fov: 50 }}>
+          <color attach="background" args={[0x000000]} />
+          <ambientLight intensity={0.25} />
+          <pointLight position={[6, 6, 8]} intensity={1.3} />
+          <pointLight position={[-6, -3, -6]} intensity={0.7} color={new THREE.Color('#8b5cf6')} />
 
-        <Suspense fallback={null}>
-          <CameraRig />
-          <Globe />        {/* larger globe */}
-          <SceneFX />      {/* nebula, asteroids, comet, aurora, satellites */}
-          <Stars radius={130} depth={80} count={4500} factor={2.6} fade speed={0.4} />
-          <OrbitingUI />   {/* large neon buttons */}
-        </Suspense>
+          <Suspense fallback={null}>
+            <CameraRig />
+            <Globe />
+            <SceneFX />
+            <Stars radius={130} depth={80} count={4500} factor={2.6} fade speed={0.4} />
+            <OrbitingUI />
+          </Suspense>
 
-        <OrbitControls enablePan={false} enableDamping dampingFactor={0.08} minDistance={6} maxDistance={16} />
-      </Canvas>
+          <OrbitControls enablePan={false} enableDamping dampingFactor={0.08} minDistance={6} maxDistance={16} />
+        </Canvas>
+      </div>
 
       {/* Background nebula overlay */}
       <div className="absolute inset-0 bg-nebula opacity-80" />
