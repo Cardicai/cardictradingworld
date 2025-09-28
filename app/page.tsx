@@ -24,9 +24,9 @@ export default function Page() {
 
       {/* Canvas */}
       <Canvas camera={{ position: [0, 0, 8], fov: 55 }}>
-        <primitive object={new THREE.AmbientLight(0xffffff, 0.2)} />
-        <primitive object={new THREE.PointLight(0xffffff, 1.2)} position={[5, 5, 5]} />
-        <primitive object={new THREE.PointLight(new THREE.Color('#8b5cf6'), 0.6)} position={[-5, -2, -3]} />
+        <ambientLight intensity={0.2} />
+        <pointLight position={[5, 5, 5]} intensity={1.2} />
+        <pointLight position={[-5, -2, -3]} intensity={0.6} color={new THREE.Color('#8b5cf6')} />
         <Suspense fallback={null}>
           <CameraRig />
           <Globe />
