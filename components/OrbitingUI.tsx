@@ -5,26 +5,22 @@ import { useFrame } from '@react-three/fiber'
 import { useMemo, useRef, useState } from 'react'
 import { useCameraFocus } from '@/components/camera/store'
 
-const LABELS = [
-  'TOOL','AI MENTOR','CLUB','GAME','COMMUNITY','PROJECTS','AI ANALYST','NEWS','REWARD HUB','ADMIN SEC','ZiRAN'
+export const ORBIT_ITEMS = [
+  { label: 'TOOL', href: '#' },
+  { label: 'AI MENTOR', href: '#' },
+  { label: 'CLUB', href: '#' },
+  { label: 'GAME', href: '#' },
+  { label: 'COMMUNITY', href: 'https://t.me/cardicnexus' },
+  { label: 'PROJECTS', href: '#' },
+  { label: 'AI ANALYST', href: '#' },
+  { label: 'NEWS', href: '#' },
+  { label: 'REWARD HUB', href: '#' },
+  { label: 'ADMIN SEC', href: '#' },
+  { label: 'ZiRAN', href: '#' },
 ]
 
-// Map to your real URLs later
-const LINKS: Record<string,string> = {
-  'TOOL': '#',
-  'AI MENTOR': '#',
-  'CLUB': '#',
-  'GAME': '#',
-  'COMMUNITY': 'https://t.me/cardicnexus',
-  'PROJECTS': '#',
-  'AI ANALYST': '#',
-  'NEWS': '#',
-  'REWARD HUB': '#',
-  'ADMIN SEC': '#',
-  'ZiRAN': '#'
-}
-
-export default function OrbitingUI(){
+export default function OrbitingUI({ docked = false }: { docked?: boolean }){
+  if (docked) return null
   const group = useRef<THREE.Group>(null)
   const t0 = useMemo(()=>Math.random()*1000,[])
   const focus = useCameraFocus(s=>s.focusTo)
@@ -32,7 +28,7 @@ export default function OrbitingUI(){
   useFrame((state)=>{
     const t = state.clock.getElapsedTime() + t0
     if(!group.current) return
-    const L = LABELS.length
+    const L = ORBIT_ITEMS.length
     group.current.children.forEach((child, i)=>{
       const ring = i % 2            // two rings interleaved
       const baseR = 5.0             // wider radius (was ~4.2)
@@ -48,8 +44,8 @@ export default function OrbitingUI(){
 
   return (
     <group ref={group}>
-      {LABELS.map((text)=> (
-        <Button3D key={text} text={text} href={LINKS[text]} onFocus={focus} />
+      {ORBIT_ITEMS.map(({ label, href })=> (
+        <Button3D key={label} text={label} href={href} onFocus={focus} />
       ))}
     </group>
   )
