@@ -33,7 +33,6 @@ export default function Page() {
           className="text-3xl md:text-5xl font-extrabold tracking-widest bg-clip-text text-transparent bg-gradient-to-r from-cardic.blue to-cardic.violet drop-shadow">
           CARDIC NEXUS
         </motion.h1>
-        <p className="mt-2 text-xs md:text-sm opacity-70">Futuristic Galactic Interface · Space Hub</p>
       </div>
 
       <AnimatePresence>
