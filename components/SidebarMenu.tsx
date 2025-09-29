@@ -2,9 +2,16 @@
 import { LABELS, LINKS } from '@/components/data/nav'
 import { useUI } from '@/components/ui/store'
 import { motion, AnimatePresence } from 'framer-motion'
+import { type MouseEvent } from 'react'
 
 export default function SidebarMenu(){
   const sidebar = useUI(s=>s.sidebar)
+  const handleLinkClick = (href?: string) => (event: MouseEvent<HTMLAnchorElement>) => {
+    if (!href || href === '#') {
+      event.preventDefault()
+      window.alert('Coming Soon')
+    }
+  }
 
   return (
     <AnimatePresence>
@@ -29,7 +36,8 @@ export default function SidebarMenu(){
                   key={label}
                   href={LINKS[label] || '#'}
                   target={LINKS[label] && LINKS[label] !== '#' ? '_blank' : undefined}
-                  rel="noreferrer"
+                  rel={LINKS[label] && LINKS[label] !== '#' ? 'noreferrer' : undefined}
+                  onClick={handleLinkClick(LINKS[label])}
                   className="block w-full px-4 py-3 rounded-xl
                              border border-cyan-300/30 text-white font-bold
                              bg-gradient-to-r from-cyan-500/25 via-transparent to-violet-500/25
