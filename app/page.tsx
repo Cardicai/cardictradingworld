@@ -1,7 +1,7 @@
 'use client'
 import { Canvas } from '@react-three/fiber'
 import { Stars, OrbitControls } from '@react-three/drei'
-import { Suspense, useState } from 'react'
+import { Suspense, useState, type MouseEvent } from 'react'
 import * as THREE from 'three'
 import { AnimatePresence, motion } from 'framer-motion'
 import Globe from '@/components/Globe'
@@ -11,6 +11,12 @@ import CameraRig from '@/components/camera/CameraRig'
 
 export default function Page() {
   const [isDocked, setIsDocked] = useState(false)
+  const handleDockedClick = (href?: string) => (event: MouseEvent<HTMLAnchorElement>) => {
+    if (!href || href === '#') {
+      event.preventDefault()
+      window.alert('Coming Soon')
+    }
+  }
   return (
     <main className="fixed inset-0 bg-black">
       <div className="absolute top-6 right-6 z-30 pointer-events-auto">
@@ -27,7 +33,6 @@ export default function Page() {
           className="text-3xl md:text-5xl font-extrabold tracking-widest bg-clip-text text-transparent bg-gradient-to-r from-cardic.blue to-cardic.violet drop-shadow">
           CARDIC NEXUS
         </motion.h1>
-        <p className="mt-2 text-xs md:text-sm opacity-70">Futuristic Galactic Interface · Space Hub</p>
       </div>
 
       <AnimatePresence>
@@ -51,6 +56,7 @@ export default function Page() {
                   href={href}
                   target={href && href !== '#' ? '_blank' : undefined}
                   rel={href && href !== '#' ? 'noreferrer' : undefined}
+                  onClick={handleDockedClick(href)}
                   className="px-5 py-3 rounded-full border border-cyan-300/40 text-sm md:text-base font-semibold tracking-wide text-white/90 bg-black/40 hover:bg-black/60 transition-colors backdrop-blur"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.97 }}

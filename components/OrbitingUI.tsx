@@ -4,20 +4,12 @@ import * as THREE from 'three'
 import { useFrame } from '@react-three/fiber'
 import { useMemo, useRef, useState } from 'react'
 import { useCameraFocus } from '@/components/camera/store'
+import { LABELS, LINKS } from '@/components/data/nav'
 
-export const ORBIT_ITEMS = [
-  { label: 'TOOL', href: '#' },
-  { label: 'AI MENTOR', href: '#' },
-  { label: 'CLUB', href: '#' },
-  { label: 'GAME', href: '#' },
-  { label: 'COMMUNITY', href: 'https://t.me/cardicnexus' },
-  { label: 'PROJECTS', href: '#' },
-  { label: 'AI ANALYST', href: '#' },
-  { label: 'NEWS', href: '#' },
-  { label: 'REWARD HUB', href: '#' },
-  { label: 'ADMIN SEC', href: '#' },
-  { label: 'ZiRAN', href: '#' },
-]
+export const ORBIT_ITEMS = LABELS.map((label) => ({
+  label,
+  href: LINKS[label] ?? '#',
+}))
 
 export default function OrbitingUI({ docked = false }: { docked?: boolean }){
   if (docked) return null
@@ -67,7 +59,13 @@ function Button3D({ text, href, onFocus }:{
           onClick={()=>{
             const p = buttonRef.current?.getWorldPosition(new THREE.Vector3()) ?? new THREE.Vector3(0,0,0)
             onFocus([p.x, p.y, p.z])
-            setTimeout(()=>{ if(href && href !== '#') window.open(href, '_blank') }, 500)
+            setTimeout(()=>{
+              if(href && href !== '#'){
+                window.open(href, '_blank')
+              } else {
+                window.alert('Coming Soon')
+              }
+            }, 500)
           }}
           className={`px-6 md:px-8 py-3 md:py-3.5 rounded-full text-base md:text-lg font-extrabold tracking-wide backdrop-blur border
             ${hover? 'scale-[1.08] shadow-glow' : 'scale-100'}
