@@ -12,12 +12,12 @@ export const ORBIT_ITEMS = LABELS.map((label) => ({
 }))
 
 export default function OrbitingUI({ docked = false }: { docked?: boolean }){
-  if (docked) return null
   const group = useRef<THREE.Group>(null)
   const t0 = useMemo(()=>Math.random()*1000,[])
   const focus = useCameraFocus(s=>s.focusTo)
 
   useFrame((state)=>{
+    if (docked) return
     const t = state.clock.getElapsedTime() + t0
     if(!group.current) return
     const L = ORBIT_ITEMS.length
@@ -33,6 +33,7 @@ export default function OrbitingUI({ docked = false }: { docked?: boolean }){
       child.lookAt(0,0,0)
     })
   })
+  if (docked) return null
 
   return (
     <group ref={group}>

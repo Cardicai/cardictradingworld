@@ -8,7 +8,7 @@ export const LINKS: Record<string,string> = {
   'TRADING MENTOR': 'https://cardicworld.vercel.app/',
   'CLUB': '#',
   'GAME': '#',
-  'COMMUNITY': 'https://t.me/cardicnexus',
+  'COMMUNITY': '#',
   'PROJECTS': '#',
   'AI ANALYST': '#',
   'NEWS': '#',
