@@ -4,11 +4,11 @@ export const LABELS = [
 ];
 
 export const LINKS: Record<string,string> = {
-  'TOOL': '#',
-  'AI MENTOR': '#',
+  'TOOL': 'https://www.cardicnex.us/',
+  'AI MENTOR': 'https://cardicworld.vercel.app/',
   'CLUB': '#',
   'GAME': '#',
-  'COMMUNITY': 'https://t.me/cardicnexus',
+  'COMMUNITY': '#',
   'PROJECTS': '#',
   'AI ANALYST': '#',
   'NEWS': '#',
