@@ -2,6 +2,7 @@
 
 import { Suspense } from 'react'
 import { Canvas } from '@react-three/fiber'
+import Globe from '@/components/Globe'
 import { Stars } from '@react-three/drei'
 
 import OrbitingUI from '@/components/OrbitingUI'
@@ -16,7 +17,7 @@ export default function Page() {
       <header className="pointer-events-none absolute inset-x-0 top-0 z-20 mx-auto flex max-w-7xl items-center justify-between p-4 sm:p-6">
         <h1 className="pointer-events-auto select-none text-2xl font-extrabold tracking-widest">
           CARDIC NEXUS
-          <span className="ml-3 text-sm font-medium opacity-70">Futuristic Galactic Interface · Space Hub</span>
+          <span className="ml-3 text-sm font-medium opacity-70">we build from vision to result · Space Hub</span>
         </h1>
         <div className="pointer-events-auto">
           <Toggle />
@@ -35,7 +36,8 @@ export default function Page() {
           <Stars radius={100} depth={50} count={4000} factor={2} saturation={0} fade speed={0.3} />
 
           {/* orbiting buttons */}
-          <Suspense fallback={null}>
+          <Globe radius={2.6} />
+            <Suspense fallback={null}>
             <OrbitingUI />
           </Suspense>
         </Canvas>
