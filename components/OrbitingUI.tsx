@@ -1,76 +1,50 @@
 'use client'
-import { Html } from '@react-three/drei'
-import * as THREE from 'three'
-import { useFrame } from '@react-three/fiber'
-import { useMemo, useRef, useState } from 'react'
-import { useCameraFocus } from '@/components/camera/store'
-import { LABELS, LINKS } from '@/components/data/nav'
 
-export default function OrbitingUI(){
-  const group = useRef<THREE.Group>(null)
-  const t0 = useMemo(()=>Math.random()*1000,[])
-  const focus = useCameraFocus(s=>s.focusTo)
+import Link from 'next/link'
+import type { CSSProperties } from 'react'
+import { useMemo } from 'react'
+import { NAV_ITEMS } from '@/components/data/nav'
 
-  useFrame((state)=>{
-    const t = state.clock.getElapsedTime() + t0
-    if(!group.current) return
-    const L = LABELS.length
-    group.current.children.forEach((child, i)=>{
-      const ring = i % 2
-      const baseR = 5.0
-      const r = baseR + (ring ? 0.8 : -0.2)
-      const speed = 0.22 + (i*0.017)
-      const phase = (i*(Math.PI*2/L)) + (ring ? Math.PI/L : 0)
-      const a = t*speed + phase
-      const y = Math.sin(t*0.45 + i)*0.45
-      child.position.set(Math.cos(a)*r, y, Math.sin(a)*r)
-      child.lookAt(0,0,0)
-    })
-  })
+const ORBIT_COUNT = 6
+
+export default function OrbitingUI() {
+  const items = useMemo(() => NAV_ITEMS.slice(0, ORBIT_COUNT), [])
 
   return (
-    <group ref={group}>
-      {LABELS.map((text)=> (
-        <Button3D key={text} text={text} href={LINKS[text] || '#'} />
-      ))}
-    </group>
-  )
-}
+    <div
+      className="orbiting-ui pointer-events-none absolute inset-0 z-[30] flex items-center justify-center"
+      data-focus-background="true"
+    >
+      <ul className="orbiting-ui__ring relative flex h-[min(70vw,38rem)] w-[min(70vw,38rem)] items-center justify-center">
+        {items.map((item, index) => {
+          const angle = (index / items.length) * Math.PI * 2
+          const radius = index % 2 === 0 ? 'var(--orbit-radius-large)' : 'var(--orbit-radius-small)'
+          const speed = index % 2 === 0 ? '1' : '0.8'
+          const linkProps = item.href.startsWith('http')
+            ? { href: item.href, target: '_blank', rel: 'noreferrer' }
+            : { href: item.href }
 
-function Button3D({ text, href }:{ text:string, href:string }){
-  const [hover, setHover] = useState(false)
-  const buttonRef = useRef<THREE.Group>(null)
-  const focus = useCameraFocus(s=>s.focusTo)
-
-  const handleClick = ()=>{
-    const p = buttonRef.current?.getWorldPosition(new THREE.Vector3()) ?? new THREE.Vector3(0,0,0)
-    focus([p.x, p.y, p.z])
-    setTimeout(()=>{
-      if (href && href !== '#') {
-        window.open(href, '_blank')
-      } else {
-        alert('Coming soon')
-      }
-    }, 400)
-  }
-
-  return (
-    <group ref={buttonRef}>
-      <Html center occlude distanceFactor={8} sprite>
-        <button
-          onMouseEnter={()=>setHover(true)}
-          onMouseLeave={()=>setHover(false)}
-          onClick={handleClick}
-          className={`px-6 md:px-8 py-3 md:py-3.5 rounded-full text-base md:text-lg font-extrabold tracking-wide backdrop-blur border
-            ${hover? 'scale-[1.08] shadow-glow' : 'scale-100'}
-            transition-all duration-200
-            border-cyan-300/40 text-white
-            bg-gradient-to-r from-cardic.blue/35 via-transparent to-cardic.violet/35`}
-          style={{ boxShadow: hover? '0 0 28px rgba(34,211,238,0.55), 0 0 60px rgba(139,92,246,0.4)' : '0 0 14px rgba(14,165,233,0.18)'}}
-        >
-          {text}
-        </button>
-      </Html>
-    </group>
+          return (
+            <li
+              key={item.label}
+              style={{
+                '--item-phase': `${angle}rad`,
+                '--item-speed': speed,
+                '--item-radius': radius,
+              } as CSSProperties}
+              className="orbiting-ui__item"
+            >
+              <Link
+                {...linkProps}
+                className="orbit-chip"
+                tabIndex={0}
+              >
+                {item.label}
+              </Link>
+            </li>
+          )
+        })}
+      </ul>
+    </div>
   )
 }
