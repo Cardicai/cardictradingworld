@@ -3,16 +3,19 @@ import { useFrame } from '@react-three/fiber'
 import { Sphere } from '@react-three/drei'
 import * as THREE from 'three'
 import { useRef } from 'react'
+import { useUI } from '@/components/ui/store'
 
 export default function Globe() {
   const group = useRef<THREE.Group>(null)
   const wire1 = useRef<THREE.LineSegments>(null)
   const wire2 = useRef<THREE.LineSegments>(null)
+  const animationSpeed = useUI((s) => s.animationSpeed)
 
   useFrame((_, dt) => {
-    if (group.current) group.current.rotation.y += dt * 0.05
-    if (wire1.current) wire1.current.rotation.y += dt * 0.1
-    if (wire2.current) wire2.current.rotation.y -= dt * 0.08
+    const delta = dt * animationSpeed
+    if (group.current) group.current.rotation.y += delta * 0.05
+    if (wire1.current) wire1.current.rotation.y += delta * 0.1
+    if (wire2.current) wire2.current.rotation.y -= delta * 0.08
   })
 
   const R = 2.8
