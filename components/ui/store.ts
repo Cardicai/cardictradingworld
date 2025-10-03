@@ -2,12 +2,16 @@
 import { create } from 'zustand'
 
 type UIStore = {
-  sidebar: boolean
-  toggleSidebar: () => void
-  setSidebar: (v:boolean)=>void
+  focusActive: boolean
+  toggleFocus: () => void
+  setFocus: (value: boolean) => void
 }
-export const useUI = create<UIStore>((set)=>({
-  sidebar: false,
-  toggleSidebar: ()=>set(s=>({ sidebar: !s.sidebar })),
-  setSidebar: (v)=>set({ sidebar: v })
+
+export const useUI = create<UIStore>((set) => ({
+  focusActive: false,
+  toggleFocus: () =>
+    set((state) => ({
+      focusActive: !state.focusActive,
+    })),
+  setFocus: (value) => set({ focusActive: value }),
 }))

@@ -1,18 +1,19 @@
-export const LABELS = [
-  'TOOL','AI MENTOR','CLUB','GAME','COMMUNITY',
-  'PROJECTS','AI ANALYST','NEWS','REWARD HUB','ADMIN SEC','ZiRAN'
-];
+export type NavItem = {
+  label: string
+  href: string
+}
 
-export const LINKS: Record<string,string> = {
-  'TOOL': 'https://www.cardicnex.us/',
-  'AI MENTOR': 'https://cardicworld.vercel.app/',
-  'CLUB': '#',
-  'GAME': '#',
-  'COMMUNITY': '#',
-  'PROJECTS': '#',
-  'AI ANALYST': '#',
-  'NEWS': '#',
-  'REWARD HUB': '#',
-  'ADMIN SEC': '#',
-  'ZiRAN': '#'
-};
+export const NAV_ITEMS: NavItem[] = [
+  { label: 'AI Mentor', href: 'https://cardicworld.vercel.app/' },
+  { label: 'Tools', href: 'https://www.cardicnex.us/' },
+  { label: 'Club', href: '#' },
+  { label: 'Game', href: '#' },
+  { label: 'Funding', href: '/funding' },
+  { label: 'Community', href: '#' },
+  { label: 'Projects', href: '#' },
+  { label: 'AI Analyst', href: '#' },
+  { label: 'News', href: '#' },
+  { label: 'Reward Hub', href: '#' },
+  { label: 'Admin Sec', href: '#' },
+  { label: 'ZiRAN', href: '#' },
+]
