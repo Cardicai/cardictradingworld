@@ -2,17 +2,184 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Full-bleed canvas app */
-html, body, #__next { height: 100%; }
-* { box-sizing: border-box; }
-body { margin: 0; background: #000; color: #fff; overflow: hidden; }
+:root {
+  color-scheme: dark;
+  --theta: 0;
+  --orbit-speed: 1;
+  --orbit-radius-large: clamp(10rem, 22vw, 18rem);
+  --orbit-radius-small: clamp(7rem, 19vw, 14.5rem);
+}
 
-/* Subtle vignette + color haze */
-.nebula-vignette {
+html,
+body,
+#__next {
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: #000;
+}
+
+body {
+  margin: 0;
+  background: #000;
+  color: #fff;
+  overflow: hidden;
+  font-family: var(--font-sans, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif);
+}
+
+html.focus-active {
+  overscroll-behavior: contain;
+}
+
+html.focus-active {
+  --orbit-speed: 0 !important;
+}
+
+html.focus-active .focus-drawer,
+html.focus-active .focus-drawer * {
+  pointer-events: auto;
+}
+
+html.focus-active .space-hub [data-focus-background="true"] {
   pointer-events: none;
+}
+
+html.focus-active .orbit-chip {
+  pointer-events: none;
+}
+
+.space-hub {
+  contain: layout paint;
+  isolation: isolate;
+}
+
+.space-hub-bg {
+  pointer-events: none;
+  z-index: 0;
   background:
-    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.06), transparent 55%),
-    radial-gradient(circle at 20% 20%, rgba(14,165,233,0.14), transparent 42%),
-    radial-gradient(circle at 80% 70%, rgba(139,92,246,0.12), transparent 46%);
-  opacity: .9;
+    radial-gradient(circle at 50% 15%, rgba(34, 211, 238, 0.14), transparent 50%),
+    radial-gradient(circle at 72% 75%, rgba(139, 92, 246, 0.22), transparent 55%),
+    radial-gradient(circle at 25% 82%, rgba(15, 118, 110, 0.18), transparent 62%);
+  opacity: 0.85;
+}
+
+.space-scene {
+  position: absolute !important;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.orbiting-ui__ring {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  container-type: inline-size;
+  container-name: orbit-ring;
+}
+
+.orbiting-ui__item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  pointer-events: none;
+  transform-origin: center;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform: translate3d(-50%, -50%, 0)
+    rotate(calc(var(--theta) * var(--item-speed) + var(--item-phase)))
+    translate3d(var(--item-radius), 0, 0)
+    rotate(calc((var(--theta) * var(--item-speed) + var(--item-phase)) * -1))
+    translateZ(0);
+  opacity: 0.92;
+  transition: opacity 0.35s ease;
+  z-index: 30;
+}
+
+.orbit-chip {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.42em;
+  font-size: clamp(0.65rem, 1.4vw, 0.95rem);
+  padding: clamp(0.55rem, 1.9vw, 0.9rem) clamp(1.2rem, 3vw, 1.8rem);
+  border-radius: 999px;
+  color: #f8fafc;
+  text-decoration: none;
+  background: linear-gradient(135deg, rgba(34, 211, 238, 0.18), rgba(139, 92, 246, 0.12));
+  border: 1px solid rgba(94, 234, 212, 0.25);
+  box-shadow: 0 0 34px rgba(56, 189, 248, 0.22);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  transition: transform 0.35s ease, opacity 0.35s ease, border-color 0.3s ease;
+}
+
+.orbit-chip:hover,
+.orbit-chip:focus-visible {
+  border-color: rgba(165, 243, 252, 0.55);
+  opacity: 1;
+  transform: translateZ(0) scale(1.04);
+}
+
+.orbit-chip:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.35);
+}
+
+.focus-drawer {
+  backdrop-filter: none;
+}
+
+@container orbit-ring (max-width: 22rem) {
+  .orbit-chip {
+    letter-spacing: 0.32em;
+    padding: clamp(0.45rem, 3vw, 0.7rem) clamp(0.9rem, 4vw, 1.2rem);
+    font-size: clamp(0.6rem, 3vw, 0.8rem);
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --orbit-radius-large: clamp(8rem, 52vw, 12rem);
+    --orbit-radius-small: clamp(5.5rem, 42vw, 9.5rem);
+  }
+
+  .space-hub-bg {
+    background:
+      radial-gradient(circle at 50% 25%, rgba(34, 211, 238, 0.18), transparent 45%),
+      radial-gradient(circle at 75% 70%, rgba(76, 29, 149, 0.25), transparent 52%);
+    opacity: 0.72;
+  }
+
+  .orbit-chip {
+    backdrop-filter: none;
+    background: rgba(30, 64, 175, 0.28);
+    box-shadow: 0 12px 30px rgba(30, 64, 175, 0.25);
+    border-color: rgba(125, 211, 252, 0.3);
+    letter-spacing: 0.24em;
+  }
+
+  .focus-drawer {
+    background: rgba(6, 10, 22, 0.95);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbiting-ui__item {
+    transition-duration: 0.1s;
+  }
+
+  .orbit-chip {
+    transition-duration: 0.1s;
+  }
 }

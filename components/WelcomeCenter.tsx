@@ -1,31 +1,34 @@
 'use client'
-import { motion } from 'framer-motion'
-import { useUI } from '@/components/ui/store'
 
-export default function WelcomeCenter(){
-  const sidebar = useUI(s=>s.sidebar)
-  if(!sidebar) return null
+import { useEffect, useState } from 'react'
+
+export default function WelcomeCenter() {
+  const [allowGlow, setAllowGlow] = useState(false)
+
+  useEffect(() => {
+    const query = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const update = () => setAllowGlow(!query.matches)
+    update()
+    const handler = (event: MediaQueryListEvent) => setAllowGlow(!event.matches)
+    query.addEventListener('change', handler)
+    return () => {
+      query.removeEventListener('change', handler)
+    }
+  }, [])
 
   return (
-    <div className="pointer-events-none absolute inset-0 flex items-center justify-center z-20">
-      <motion.div
-        initial={{ opacity: 0, scale: .95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: .6 }}
-        className="text-center"
-      >
-        <motion.div
-          animate={{ textShadow: ['0 0 0px #00ffff', '0 0 18px #00ffff', '0 0 0px #00ffff'] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="text-2xl md:text-5xl font-extrabold tracking-wide
-                     bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-violet-400 drop-shadow"
+    <div className="pointer-events-none absolute inset-0 z-[50] flex items-center justify-center px-6">
+      <div className="text-center">
+        <h2
+          className="text-balance text-2xl font-semibold uppercase tracking-[0.32em] text-white sm:text-4xl"
+          style={{ textShadow: allowGlow ? '0 0 24px rgba(56,189,248,0.4)' : '0 0 12px rgba(56,189,248,0.28)' }}
         >
           Welcome to Cardic Nexus
-        </motion.div>
-        <div className="mt-3 text-sm md:text-lg opacity-80">
-          where smart minds meet
-        </div>
-      </motion.div>
+        </h2>
+        <p className="mt-3 text-sm uppercase tracking-[0.24em] text-white/70 sm:text-base">
+          Where smart minds meet
+        </p>
+      </div>
     </div>
   )
 }
