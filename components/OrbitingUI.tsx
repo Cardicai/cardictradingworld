@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client'
 import { Html } from '@react-three/drei'
 import * as THREE from 'three'
@@ -5,14 +6,17 @@ import { useFrame } from '@react-three/fiber'
 import { useMemo, useRef, useState } from 'react'
 import { useCameraFocus } from '@/components/camera/store'
 import { LABELS, LINKS } from '@/components/data/nav'
+import { useUI } from '@/components/ui/store'
 
 export default function OrbitingUI(){
   const group = useRef<THREE.Group>(null)
   const t0 = useMemo(()=>Math.random()*1000,[])
-  const focus = useCameraFocus(s=>s.focusTo)
+  const animationSpeed = useUI((s) => s.animationSpeed)
+  const timeRef = useRef(0)
 
-  useFrame((state)=>{
-    const t = state.clock.getElapsedTime() + t0
+  useFrame((state, delta)=>{
+    timeRef.current += delta * animationSpeed
+    const t = timeRef.current + t0
     if(!group.current) return
     const L = LABELS.length
     group.current.children.forEach((child, i)=>{

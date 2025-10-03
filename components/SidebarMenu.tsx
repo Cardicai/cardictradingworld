@@ -3,46 +3,71 @@ import { LABELS, LINKS } from '@/components/data/nav'
 import { useUI } from '@/components/ui/store'
 import { motion, AnimatePresence } from 'framer-motion'
 
-export default function SidebarMenu(){
-  const sidebar = useUI(s=>s.sidebar)
+export default function SidebarMenu() {
+  const sidebar = useUI((s) => s.sidebar)
+  const setSidebar = useUI((s) => s.setSidebar)
 
   return (
     <AnimatePresence>
       {sidebar && (
         <>
-          <motion.div
-            initial={{ opacity: 0 }} animate={{ opacity: .35 }} exit={{ opacity: 0 }}
-            transition={{ duration: .25 }}
-            className="absolute inset-0 bg-black pointer-events-none z-20"
+          <motion.button
+            type="button"
+            aria-label="Close focus menu"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.6 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-40 bg-black/80 backdrop-blur-sm"
+            onClick={() => setSidebar(false)}
           />
-          <motion.div
-            initial={{ x: 380 }} animate={{ x: 0 }} exit={{ x: 380 }}
-            transition={{ type: 'spring', stiffness: 260, damping: 26 }}
-            className="pointer-events-auto absolute inset-y-0 right-0 z-30 flex items-center"
+          <motion.aside
+            initial={{ x: 360 }}
+            animate={{ x: 0 }}
+            exit={{ x: 360 }}
+            transition={{ type: 'spring', stiffness: 280, damping: 30 }}
+            className="fixed inset-y-0 right-0 z-50 flex w-[min(360px,78vw)] max-w-sm"
+            id="focus-menu"
           >
-            <nav className="mr-6 w-[min(340px,42vw)] max-h-[90vh] overflow-auto
-                            bg-black/50 backdrop-blur rounded-2xl border border-cyan-300/20 p-4 space-y-3">
-              {LABELS.map((label)=> {
-                const url = LINKS[label] || '#'
-                const isReal = url !== '#'
-                return (
-                  <a
-                    key={label}
-                    href={url}
-                    target={isReal ? '_blank' : undefined}
-                    rel={isReal ? 'noreferrer' : undefined}
-                    onClick={(e)=>{ if(!isReal){ e.preventDefault(); alert('Coming soon') }}}
-                    className="block w-full px-4 py-3 rounded-xl
-                               border border-cyan-300/30 text-white font-bold
-                               bg-gradient-to-r from-cyan-500/25 via-transparent to-violet-500/25
-                               shadow-glow hover:scale-[1.02] transition"
-                  >
-                    {label}
-                  </a>
-                )
-              })}
-            </nav>
-          </motion.div>
+            <div className="flex h-full w-full flex-col gap-6 bg-black/80 px-6 pb-10 pt-8 text-white shadow-[0_0_40px_rgba(34,211,238,0.35)]">
+              <header className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.4em] text-cyan-300/70">Focus Menu</p>
+                  <h2 className="text-lg font-semibold text-white">Navigate the Nexus</h2>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setSidebar(false)}
+                  className="rounded-full border border-cyan-300/40 px-3 py-1 text-sm font-medium text-white/80 transition hover:border-cyan-200 hover:text-white"
+                >
+                  Close
+                </button>
+              </header>
+              <nav className="flex flex-1 flex-col gap-3 overflow-y-auto pr-1">
+                {LABELS.map((label) => {
+                  const url = LINKS[label] || '#'
+                  const isReal = url !== '#'
+                  return (
+                    <a
+                      key={label}
+                      href={url}
+                      target={isReal ? '_blank' : undefined}
+                      rel={isReal ? 'noreferrer' : undefined}
+                      onClick={(event) => {
+                        if (!isReal) {
+                          event.preventDefault()
+                          alert('Coming soon')
+                        }
+                      }}
+                      className="rounded-xl border border-cyan-300/30 bg-gradient-to-r from-cyan-500/20 via-transparent to-violet-500/20 px-4 py-3 font-semibold tracking-wide text-white transition hover:scale-[1.02] hover:border-cyan-200/70 hover:shadow-[0_0_25px_rgba(34,211,238,0.35)]"
+                    >
+                      {label}
+                    </a>
+                  )
+                })}
+              </nav>
+            </div>
+          </motion.aside>
         </>
       )}
     </AnimatePresence>

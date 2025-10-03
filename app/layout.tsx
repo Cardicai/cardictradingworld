@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "CARDIC NEXUS — Space Hub",
+  title: "CARDIC NEXUS — Trading Hub",
   description: "3D interactive portal",
 };
 
