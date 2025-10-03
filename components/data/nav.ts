@@ -1,18 +1,10 @@
-export const LABELS = [
-  'TOOL','AI MENTOR','CLUB','GAME','COMMUNITY',
-  'PROJECTS','AI ANALYST','NEWS','REWARD HUB','ADMIN SEC','ZiRAN'
-];
+export const LABELS = ['AI Mentor', 'Tools', 'Club', 'Game', 'Funding', 'NexLink']
 
-export const LINKS: Record<string,string> = {
-  'TOOL': 'https://www.cardicnex.us/',
-  'AI MENTOR': 'https://cardicworld.vercel.app/',
-  'CLUB': '#',
-  'GAME': '#',
-  'COMMUNITY': '#',
-  'PROJECTS': '#',
-  'AI ANALYST': '#',
-  'NEWS': '#',
-  'REWARD HUB': '#',
-  'ADMIN SEC': '#',
-  'ZiRAN': '#'
-};
+export const LINKS: Record<string, string> = {
+  'AI Mentor': 'https://cardicworld.vercel.app/',
+  Tools: 'https://www.cardicnex.us/',
+  Club: '#',
+  Game: '#',
+  Funding: '#',
+  NexLink: '#',
+}
