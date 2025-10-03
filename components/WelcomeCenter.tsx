@@ -2,29 +2,26 @@
 import { motion } from 'framer-motion'
 import { useUI } from '@/components/ui/store'
 
-export default function WelcomeCenter(){
-  const sidebar = useUI(s=>s.sidebar)
-  if(!sidebar) return null
+export default function WelcomeCenter() {
+  const sidebar = useUI((s) => s.sidebar)
 
   return (
-    <div className="pointer-events-none absolute inset-0 flex items-center justify-center z-20">
+    <div className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center px-6">
       <motion.div
-        initial={{ opacity: 0, scale: .95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: .6 }}
-        className="text-center"
+        initial={false}
+        animate={{ opacity: sidebar ? 0 : 1, y: sidebar ? 16 : 0, scale: sidebar ? 0.97 : 1 }}
+        transition={{ duration: 0.35, ease: 'easeOut' }}
+        className="max-w-3xl text-center"
       >
-        <motion.div
-          animate={{ textShadow: ['0 0 0px #00ffff', '0 0 18px #00ffff', '0 0 0px #00ffff'] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="text-2xl md:text-5xl font-extrabold tracking-wide
-                     bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-violet-400 drop-shadow"
+        <h2
+          className="text-[clamp(2.2rem,6vw,3.8rem)] font-semibold tracking-[0.12em] text-white"
+          style={{ textShadow: '0 0 22px rgba(56,189,248,0.45)' }}
         >
-          Welcome to Cardic Nexus
-        </motion.div>
-        <div className="mt-3 text-sm md:text-lg opacity-80">
-          where smart minds meet
-        </div>
+          Cardic Nexus — Space Hub
+        </h2>
+        <p className="mt-4 text-[clamp(0.95rem,2.8vw,1.25rem)] font-medium text-white/80">
+          Build bold ideas with stellar teams, guided by mentors, tools, and funding aligned to your orbit.
+        </p>
       </motion.div>
     </div>
   )
