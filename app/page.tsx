@@ -14,10 +14,21 @@ export default function Page() {
   return (
     <main className="relative min-h-screen w-full overflow-hidden bg-black text-white">
       {/* HUD / Header */}
-      <header className="pointer-events-none absolute inset-x-0 top-0 z-20 mx-auto flex max-w-7xl items-center justify-between p-4 sm:p-6">
-        <h1 className="pointer-events-auto select-none text-2xl font-extrabold tracking-widest">
+      <header
+        className="pointer-events-none absolute inset-x-0 top-0 z-40 mx-auto flex max-w-7xl items-start justify-between px-4 sm:px-6"
+        style={{
+          paddingTop: 'calc(env(safe-area-inset-top, 0px) + 1rem)',
+          paddingLeft: 'calc(env(safe-area-inset-left, 0px) + 1rem)',
+          paddingRight: 'calc(env(safe-area-inset-right, 0px) + 1rem)',
+        }}
+      >
+        <h1
+          className="pointer-events-auto mt-[clamp(0.75rem,6vw,2rem)] select-none text-[clamp(1.05rem,4.5vw,1.4rem)] font-extrabold tracking-[0.42em] max-[480px]:mt-[clamp(3rem,14vw,3.75rem)] max-[480px]:tracking-[0.3em] max-[480px]:pl-[calc(env(safe-area-inset-left,0px)+0.25rem)] sm:mt-0 sm:text-2xl sm:tracking-[0.6em]"
+        >
           CARDIC NEXUS
-          <span className="ml-3 text-sm font-medium opacity-70">we build from vision to result · Space Hub</span>
+          <span className="ml-0 mt-2 block text-[clamp(0.62rem,2.4vw,0.8rem)] font-medium uppercase opacity-70 sm:ml-3 sm:mt-0 sm:inline">
+            we build from vision to result · Trading Hub
+          </span>
         </h1>
         <div className="pointer-events-auto">
           <Toggle />
@@ -37,7 +48,7 @@ export default function Page() {
 
           {/* orbiting buttons */}
           <Globe radius={2.6} />
-            <Suspense fallback={null}>
+          <Suspense fallback={null}>
             <OrbitingUI />
           </Suspense>
         </Canvas>
