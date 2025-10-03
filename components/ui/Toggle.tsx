@@ -7,11 +7,8 @@ export default function Toggle() {
     <button
       type="button"
       onClick={toggleSidebar}
-      className="pointer-events-auto fixed z-50 flex min-h-12 items-center justify-center rounded-full border-[3px] border-cyan-50/80 bg-gradient-to-r from-cyan-300 via-sky-400 to-blue-500 px-6 text-[clamp(0.7rem,2.2vw,0.82rem)] font-bold uppercase tracking-[0.24em] text-white shadow-[0_0_40px_rgba(56,189,248,0.65)] transition hover:scale-105 hover:border-cyan-50/95"
-      style={{
-        top: 'calc(env(safe-area-inset-top, 0px) + 0.75rem)',
-        right: 'calc(env(safe-area-inset-right, 0px) + 0.75rem)',
-      }}
+ fixed top-6 right-6 z-50 rounded-full border border-cyan-300/50 bg-gradient-to-r from-cyan-500/25 via-transparent to-violet-500/25 px-5 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-white shadow-[0_0_20px_rgba(14,165,233,0.35)] transition hover:scale-105 hover:border-cyan-200/80"
+
       aria-pressed={sidebar}
       aria-expanded={sidebar}
       aria-controls="focus-menu"

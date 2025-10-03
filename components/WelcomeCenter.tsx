@@ -20,7 +20,7 @@ export default function WelcomeCenter() {
           Cardic Nexus — Space Hub
         </h2>
         <p className="mt-4 text-[clamp(0.95rem,2.8vw,1.25rem)] font-medium text-white/80">
-          FIRST TRADING ECOSYSTEM
+
         </p>
       </motion.div>
     </div>

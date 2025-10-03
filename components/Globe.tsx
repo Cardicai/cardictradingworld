@@ -3,7 +3,7 @@
 import { useFrame } from '@react-three/fiber'
 import { Sphere } from '@react-three/drei'
 import * as THREE from 'three'
-import { MutableRefObject, useMemo, useRef } from 'react'
+
 import { useUI } from '@/components/ui/store'
 
 type WireProps = {
