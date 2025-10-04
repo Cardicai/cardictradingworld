@@ -17,10 +17,10 @@ export default function WelcomeCenter() {
           className="text-[clamp(2.2rem,6vw,3.8rem)] font-semibold tracking-[0.12em] text-white"
           style={{ textShadow: '0 0 22px rgba(56,189,248,0.45)' }}
         >
-          Cardic Nexus — Space Hub
+          Cardic Nexus — TRADING HUB
         </h2>
-        <p className="mt-4 text-[clamp(0.95rem,2.8vw,1.25rem)] font-medium text-white/80">
-
+        <p className="mt-4 text-[clamp(0.95rem,2.8vw,1.25rem)] font-medium tracking-[0.38em] text-white/70">
+          FIRST TRADING ECOSYSTEM
         </p>
       </motion.div>
     </div>
