@@ -2,6 +2,7 @@
 import { LABELS, LINKS } from '@/components/data/nav'
 import { useUI } from '@/components/ui/store'
 import { motion, AnimatePresence } from 'framer-motion'
+import Link from 'next/link'
 
 export default function SidebarMenu() {
   const sidebar = useUI((s) => s.sidebar)
@@ -46,19 +47,39 @@ export default function SidebarMenu() {
               <nav className="flex flex-1 flex-col gap-3 overflow-y-auto pr-1">
                 {LABELS.map((label) => {
                   const url = LINKS[label] || '#'
-                  const isReal = url !== '#'
+                  if (url === '#') {
+                    return (
+                      <button
+                        key={label}
+                        type="button"
+                        onClick={() => alert('Coming soon')}
+                        className="rounded-xl border border-cyan-300/30 bg-gradient-to-r from-cyan-500/20 via-transparent to-violet-500/20 px-4 py-3 text-left font-semibold tracking-wide text-white transition hover:scale-[1.02] hover:border-cyan-200/70 hover:shadow-[0_0_25px_rgba(34,211,238,0.35)]"
+                      >
+                        {label}
+                      </button>
+                    )
+                  }
+
+                  if (url.startsWith('/')) {
+                    return (
+                      <Link
+                        key={label}
+                        href={url}
+                        onClick={() => setSidebar(false)}
+                        className="rounded-xl border border-cyan-300/30 bg-gradient-to-r from-cyan-500/20 via-transparent to-violet-500/20 px-4 py-3 font-semibold tracking-wide text-white transition hover:scale-[1.02] hover:border-cyan-200/70 hover:shadow-[0_0_25px_rgba(34,211,238,0.35)]"
+                      >
+                        {label}
+                      </Link>
+                    )
+                  }
+
                   return (
                     <a
                       key={label}
                       href={url}
-                      target={isReal ? '_blank' : undefined}
-                      rel={isReal ? 'noreferrer' : undefined}
-                      onClick={(event) => {
-                        if (!isReal) {
-                          event.preventDefault()
-                          alert('Coming soon')
-                        }
-                      }}
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={() => setSidebar(false)}
                       className="rounded-xl border border-cyan-300/30 bg-gradient-to-r from-cyan-500/20 via-transparent to-violet-500/20 px-4 py-3 font-semibold tracking-wide text-white transition hover:scale-[1.02] hover:border-cyan-200/70 hover:shadow-[0_0_25px_rgba(34,211,238,0.35)]"
                     >
                       {label}
