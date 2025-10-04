@@ -7,6 +7,7 @@ import { useMemo, useRef, useState } from 'react'
 import { useCameraFocus } from '@/components/camera/store'
 import { LABELS, LINKS } from '@/components/data/nav'
 import { useUI } from '@/components/ui/store'
+import { useRouter } from 'next/navigation'
 
 export default function OrbitingUI(){
   const group = useRef<THREE.Group>(null)
@@ -45,15 +46,21 @@ function Button3D({ text, href }:{ text:string, href:string }){
   const [hover, setHover] = useState(false)
   const buttonRef = useRef<THREE.Group>(null)
   const focus = useCameraFocus(s=>s.focusTo)
+  const router = useRouter()
 
   const handleClick = ()=>{
     const p = buttonRef.current?.getWorldPosition(new THREE.Vector3()) ?? new THREE.Vector3(0,0,0)
     focus([p.x, p.y, p.z])
     setTimeout(()=>{
-      if (href && href !== '#') {
+      if (!href || href === '#') {
+        alert('Coming soon')
+        return
+      }
+
+      if (/^https?:\/\//.test(href)) {
         window.open(href, '_blank')
       } else {
-        alert('Coming soon')
+        router.push(href)
       }
     }, 400)
   }
