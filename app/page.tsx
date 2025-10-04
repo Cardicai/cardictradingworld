@@ -27,9 +27,6 @@ export default function Page() {
           className="pointer-events-auto mt-[clamp(0.75rem,6vw,2rem)] select-none text-[clamp(1.05rem,4.5vw,1.4rem)] font-extrabold tracking-[0.42em] max-[480px]:mt-[clamp(3rem,14vw,3.75rem)] max-[480px]:tracking-[0.3em] max-[480px]:pl-[calc(env(safe-area-inset-left,0px)+0.25rem)] sm:mt-0 sm:text-2xl sm:tracking-[0.6em]"
         >
           CARDIC NEXUS
-          <span className="ml-0 mt-2 block text-[clamp(0.62rem,2.4vw,0.8rem)] font-medium uppercase opacity-70 sm:ml-3 sm:mt-0 sm:inline">
-            we build from vision to result · Trading Hub
-          </span>
         </h1>
         <div className="pointer-events-auto">
           <Toggle />
