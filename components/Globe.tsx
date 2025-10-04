@@ -1,15 +1,16 @@
-// @ts-nocheck
-'use client'
-import { useFrame } from '@react-three/fiber'
-import { Sphere } from '@react-three/drei'
-import * as THREE from 'three'
+"use client"
 
-import { useUI } from '@/components/ui/store'
+import React, { useEffect, useMemo, useRef } from "react"
+import { Sphere } from "@react-three/drei"
+import { useFrame } from "@react-three/fiber"
+import * as THREE from "three"
+
+import { useUI } from "@/components/ui/store"
 
 type WireProps = {
   radius: number
   color: string
-  refObj: MutableRefObject<THREE.LineSegments | null>
+  refObj: React.MutableRefObject<THREE.LineSegments | null>
 }
 
 type GlobeProps = {
@@ -17,9 +18,9 @@ type GlobeProps = {
 }
 
 export default function Globe({ radius = 2.8 }: GlobeProps) {
-  const group = useRef<THREE.Group>(null)
-  const wire1 = useRef<THREE.LineSegments>(null)
-  const wire2 = useRef<THREE.LineSegments>(null)
+  const group = useRef<THREE.Group>(null!)
+  const wire1 = useRef<THREE.LineSegments>(null!)
+  const wire2 = useRef<THREE.LineSegments>(null!)
   const animationSpeed = useUI((s) => s.animationSpeed)
 
   useFrame((_, dt) => {
@@ -52,10 +53,22 @@ export default function Globe({ radius = 2.8 }: GlobeProps) {
 }
 
 function Wire({ radius, color, refObj }: WireProps) {
-  const edges = useMemo(() => {
-    const geometry = new THREE.IcosahedronGeometry(radius, 3)
-    return new THREE.EdgesGeometry(geometry)
-  }, [radius])
+  const geometry = useMemo(
+    () => new THREE.IcosahedronGeometry(radius, 3),
+    [radius]
+  )
+
+  const edges = useMemo(
+    () => new THREE.EdgesGeometry(geometry),
+    [geometry]
+  )
+
+  useEffect(() => {
+    return () => {
+      geometry.dispose()
+      edges.dispose()
+    }
+  }, [edges, geometry])
   return (
     <lineSegments ref={refObj}>
       <bufferGeometry attach="geometry" {...edges} />
