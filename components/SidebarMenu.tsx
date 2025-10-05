@@ -3,10 +3,16 @@ import { LABELS, LINKS } from '@/components/data/nav'
 import { useUI } from '@/components/ui/store'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 export default function SidebarMenu() {
   const sidebar = useUI((s) => s.sidebar)
   const setSidebar = useUI((s) => s.setSidebar)
+  const pathname = usePathname()
+
+  if (pathname?.startsWith('/apps')) {
+    return null
+  }
 
   return (
     <AnimatePresence>
