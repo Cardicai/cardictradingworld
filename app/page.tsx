@@ -1,12 +1,13 @@
 // app/page.tsx
 
+import dynamic from "next/dynamic";
 import SiteHeader from "@/components/SiteHeader";
-
 import SidebarMenu from "@/components/SidebarMenu";
-
 import WelcomeCenter from "@/components/WelcomeCenter";
 
-import OrbitingUI from "@/components/OrbitingUI";
+const OrbitingUI = dynamic(() => import("@/components/OrbitingUI"), {
+  ssr: false,
+});
 
 export default function HomePage() {
 
