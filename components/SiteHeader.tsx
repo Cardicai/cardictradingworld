@@ -1,8 +1,15 @@
 'use client'
 
 import Toggle from '@/components/ui/Toggle'
+import { usePathname } from 'next/navigation'
 
 export default function SiteHeader() {
+  const pathname = usePathname()
+
+  if (pathname?.startsWith('/apps')) {
+    return null
+  }
+
   return (
     <header
       className="pointer-events-none absolute inset-x-0 top-0 z-40 mx-auto flex max-w-7xl items-start justify-between px-4 sm:px-6"
