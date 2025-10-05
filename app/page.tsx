@@ -1,12 +1,11 @@
 // app/page.tsx
 
 import SiteHeader from "@/components/SiteHeader";
-
 import SidebarMenu from "@/components/SidebarMenu";
-
 import WelcomeCenter from "@/components/WelcomeCenter";
+import dynamic from "next/dynamic";
 
-import OrbitingUI from "@/components/OrbitingUI";
+const SpaceScene = dynamic(() => import("@/components/SpaceScene"), { ssr: false });
 
 export default function HomePage() {
 
@@ -29,8 +28,7 @@ export default function HomePage() {
       </section>
 
       {/* Background / ornaments */}
-
-      <OrbitingUI />
+      <SpaceScene />
 
     </main>
 
