@@ -47,22 +47,23 @@ function Button3D({ text, href }:{ text:string, href:string }){
   const buttonRef = useRef<THREE.Group>(null)
   const focus = useCameraFocus(s=>s.focusTo)
   const router = useRouter()
+  const setSidebar = useUI((s) => s.setSidebar)
 
   const handleClick = ()=>{
-    const p = buttonRef.current?.getWorldPosition(new THREE.Vector3()) ?? new THREE.Vector3(0,0,0)
-    focus([p.x, p.y, p.z])
-    setTimeout(()=>{
-      if (!href || href === '#') {
-        alert('Coming soon')
-        return
-      }
+    if (!href || href === '#') {
+      const p = buttonRef.current?.getWorldPosition(new THREE.Vector3()) ?? new THREE.Vector3(0,0,0)
+      focus([p.x, p.y, p.z])
+      alert('Coming soon')
+      return
+    }
 
-      if (href.startsWith('/')) {
-        router.push(href)
-      } else {
-        window.open(href, '_blank')
-      }
-    }, 400)
+    setSidebar(false)
+
+    if (href.startsWith('/')) {
+      router.push(href)
+    } else {
+      window.open(href, '_blank')
+    }
   }
 
   return (
