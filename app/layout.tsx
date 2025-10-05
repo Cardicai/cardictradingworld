@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import "./globals.css";
 
 export const metadata = {
@@ -5,10 +6,12 @@ export const metadata = {
   description: "3D interactive portal",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body style={{ margin: 0 }}>{children}</body>
+      <body className="m-0 min-h-screen bg-black text-white">
+        {children}
+      </body>
     </html>
   );
 }
