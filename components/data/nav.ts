@@ -6,5 +6,5 @@ export const LINKS: Record<string, string> = {
   Club: '#',
   Game: '#',
   Funding: '#',
-  NexLink: '#',
+  NexLink: 'https://nexlink-official-uobn.vercel.app/chats',
 }
