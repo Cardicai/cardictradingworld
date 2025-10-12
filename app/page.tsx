@@ -6,7 +6,11 @@ import SidebarMenu from "@/components/SidebarMenu";
 
 import WelcomeCenter from "@/components/WelcomeCenter";
 
-import OrbitingUI from "@/components/OrbitingUI";
+import dynamic from "next/dynamic";
+
+const SpaceScene = dynamic(() => import("@/components/SpaceScene"), {
+  ssr: false,
+});
 
 export default function HomePage() {
 
@@ -30,7 +34,7 @@ export default function HomePage() {
 
       {/* Background / ornaments */}
 
-      <OrbitingUI />
+      <SpaceScene />
 
     </main>
 

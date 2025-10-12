@@ -7,4 +7,8 @@ export const APP_ALLOWLIST: Record<string, { name: string; url: string }> = {
     name: 'Tools',
     url: 'https://www.cardicnex.us/',
   },
+  nexlink: {
+    name: 'NexLink',
+    url: 'https://nexlink-official-uobn.vercel.app/chats',
+  },
 }
