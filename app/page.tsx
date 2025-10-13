@@ -6,7 +6,11 @@ import SidebarMenu from "@/components/SidebarMenu";
 
 import WelcomeCenter from "@/components/WelcomeCenter";
 
-import OrbitingUI from "@/components/OrbitingUI";
+import dynamicImport from "next/dynamic";
+
+const Globe = dynamicImport(() => import("@/components/Globe"), { ssr: false });
+
+export const dynamic = "force-dynamic";
 
 export default function HomePage() {
 
@@ -30,7 +34,7 @@ export default function HomePage() {
 
       {/* Background / ornaments */}
 
-      <OrbitingUI />
+      <Globe />
 
     </main>
 
