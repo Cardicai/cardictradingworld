@@ -48,11 +48,22 @@ export default function SidebarMenu() {
                 {LABELS.map((label) => {
                   const url = LINKS[label] || '#'
                   if (url === '#') {
+                    const isNexLink = label === 'NexLink'
+                    const handleClick = () => {
+                      if (isNexLink) {
+                        window.location.href =
+                          'https://nexlink-official-uobn.vercel.app/chats'
+                      } else {
+                        alert('Coming soon')
+                      }
+                    }
+
                     return (
                       <button
                         key={label}
                         type="button"
-                        onClick={() => alert('Coming soon')}
+                        onClick={handleClick}
+                        {...(isNexLink ? { 'aria-label': 'Open NexLink' } : {})}
                         className="rounded-xl border border-cyan-300/30 bg-gradient-to-r from-cyan-500/20 via-transparent to-violet-500/20 px-4 py-3 text-left font-semibold tracking-wide text-white transition hover:scale-[1.02] hover:border-cyan-200/70 hover:shadow-[0_0_25px_rgba(34,211,238,0.35)]"
                       >
                         {label}
